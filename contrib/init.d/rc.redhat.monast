@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# chkconfig: - 91 60
+# chkconfig: - 99 60
 # description: Monast Asterisk Monitor
 #
 # processname: monast

@@ -37,6 +37,10 @@ bind_port = 5039
 # Use client autentication on browser 
 auth_required = false
 
+# Dongle path             
+script_path = /root/script
+dongle_stat_path = /var/log/monast/stat
+#dongle_stat_path = /var/log/asterisk/sms/stat
 
 ##
 ## Servers Definitions
@@ -161,4 +165,3 @@ Server_2 = originate,queue,command
 secret  = 
 roles   = 
 servers = Server_1
- 

@@ -9,40 +9,59 @@
     </tr>
     <tr>
       <td monast="statuscolor" width="115px"><span monast="status">&nbsp;</span></td>
-      <td monast="callscolor" width="60px"><span monast="calls">&nbsp;</span> <script language="javascript">document.write(Language.callsAbreviated);</script></td>
+      <td monast="callscolor" width="60px"><span monast="calls">&nbsp;</span> call(s)</td>
     </tr>
   </table>
 </div>
+
+
+<!-- User/Peer Dondle вар с СМС -->
+<div class="hidden" id="Template::UserpeerDongle">
+  <table class="status" width="225px">
+    <tr>  
+      <td colspan="2" bgcolor="#DDDDDD" width="150px" nowrap="nowrap"><b><span monast="callerid">&nbsp;</span></b></td>
+      <td monast="signalscolor" width="75px"><span monast="quality">&nbsp;</span></td> 
+ <!-- <td monast="signalscolor" width="75px"><span monast="level">&nbsp;</span> dBm</td> --> 
+    </tr>                    
+    <tr>
+      <td monast="statuscolor" width="115px"><span monast="status">&nbsp;</span></td>
+      <td monast="callscolor" width="55px"><span monast="calls">&nbsp;</span> call(s)</td>
+      <td monast="smscolor" width="45px"><span monast="sms">&nbsp;</span></td>
+    </tr>
+  </table>
+</div>  
+
+
 
 <!-- User/Peer Information -->
 <div style="display: none" id="Template::Userpeer::Info">
   <table class="tableInfo" id="Template::Userpeer::Info::Table">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.channelType);</script>:</td>
+      <td class="key">Channel Type:</td>
       <td>#{channeltype}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.peerName);</script>:</td>
+      <td class="key">Peer Name:</td>
       <td>#{peername}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.peerContext);</script>:</td>
+      <td class="key">Peer Context:</td>
       <td>#{context}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.callerid);</script>:</td>
+      <td class="key">Callerid:</td>
       <td>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.status);</script>:</td>
-      <td>#{statusTranslated}</td>
+      <td class="key">Status:</td>
+      <td>#{status}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.activeCalls);</script>:</td>
+      <td class="key">Active Calls:</td>
       <td>#{calls}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.latency);</script>:</td>
+      <td class="key">Latency:</td>
       <td>#{latency}</td>
     </tr>
   </table>
@@ -52,11 +71,11 @@
 <div style="display: none" id="Template::Userpeer::Form::Originate::Dial">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.from);</script>:</td>
+      <td class="key">From:</td>
       <td>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.to);</script>:</td>
+      <td class="key">To:</td>
       <td><input type="text" id="Userpeer::Form::Originate::Dial::To"></td>
     </tr>
   </table>
@@ -66,11 +85,11 @@
 <div style="display: none" id="Template::Userpeer::Form::Originate::InternalCall">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.from);</script>:</td>
+      <td class="key">From:</td>
       <td>#{fromcallerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.to);</script>:</td>
+      <td class="key">To:</td>
       <td>#{tocallerid}</td>
     </tr>
   </table>
@@ -82,10 +101,10 @@
     <tr>
       <td class='status' width='260'>
         <span monast="monitor">
-          <img id="Template::Channel::Image::Stop" src='image/stop.png' border='0' width='8' height='8' title="Channel Monitored">&nbsp;&nbsp;
+          <img src='image/stop.png' border='0' width='8' height='8' title="Channel Monitored">&nbsp;&nbsp;
         </span>
         <span monast="spy">
-          <img id="Template::Channel::Image::UserThief" src='image/user_thief.png' border='0' width='8' height='8' title="Channel Spyed">&nbsp;&nbsp;
+          <img src='image/user_thief.png' border='0' width='8' height='8' title="Channel Spyed">&nbsp;&nbsp;
         </span>
         <span monast="channel">&nbsp;</span>
         <br>
@@ -94,21 +113,17 @@
       <td monast="statecolor" class='status' width='70'><span monast="state">&nbsp;</span></td>
     </tr> 
   </table>
-</div>
-<script language="javascript">
-$("Template::Channel::Image::Stop").title      = Language.channelMonitored;
-$("Template::Channel::Image::UserThief").title = Language.channelSpyed;
-</script> 
+</div> 
 
 <!-- Channel Form Spy Peer -->
 <div style="display: none" id="Template::Channel::Form::Spy::Peer">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.channel);</script>:</td>
+      <td class="key">Channel:</td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.spyer);</script>:</td>
+      <td class="key">Spyer:</td>
       <td>#{spyer}</td>
     </tr>
   </table>
@@ -118,11 +133,11 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Channel::Form::Spy::Number">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.channel);</script>:</td>
+      <td class="key">Channel:</td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.spyerNumber);</script>:</td>
+      <td class="key">Spyer Number:</td>
       <td><input type="text" id="Template::Channel::Form::Spy::Number::Spyer" value="#{spyer}"></td>
     </tr>
   </table>
@@ -132,31 +147,31 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Channel::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.uniqueid);</script>:</td>
+      <td class="key">Uniqueid:</td>
       <td>#{uniqueid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.channelName);</script>:</td>
+      <td class="key">Channel Name:</td>
       <td>#{channel}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridName);</script>:</td>
+      <td class="key">Callerid Name:</td>
       <td>#{calleridname}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridNumber);</script>:</td>
+      <td class="key">Callerid Number:</td>
       <td>#{calleridnum}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.state);</script>:</td>
-      <td>#{stateTranslated}</td>
+      <td class="key">State:</td>
+      <td>#{state}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.monitored);</script>:</td>
+      <td class="key">Monitored:</td>
       <td>#{monitortext}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.spyed);</script>:</td>
+      <td class="key">Spy:</td>
       <td>#{spytext}</td>
     </tr>
   </table>
@@ -177,35 +192,35 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Bridge::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceUniqueid);</script>:</td>
+      <td class="key">Source Uniqueid:</td>
       <td>#{uniqueid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceChannel);</script>:</td>
+      <td class="key">Source Channel Name:</td>
       <td>#{channel}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceCallerid);</script>:</td>
+      <td class="key">Source Callerid:</td>
       <td>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationUniqueid);</script>:</td>
+      <td class="key">Destination Uniqueid:</td>
       <td>#{bridgeduniqueid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationChannel);</script>:</td>
+      <td class="key">Destination Channel Name:</td>
       <td>#{bridgedchannel}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationCallerid);</script>:</td>
+      <td class="key">Destination Callerid:</td>
       <td>#{bridgedcallerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.callStatus);</script>:</td>
-      <td>#{statusTranslated}</td>
+      <td class="key">Call Status:</td>
+      <td>#{status}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.callDuration);</script>:</td>
+      <td class="key">Call Duration:</td>
       <td>#{_duration}</td>
     </tr>
   </table>
@@ -215,17 +230,17 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Bridge::Form::Transfer::Internal">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceChannel);</script>:</td>
+      <td class="key">Source Channel:</td>
       <td><input type="radio" name="Template::Bridge::Form::Transfer::Internal::From" value="#{channel}" checked></td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationChannel);</script>:</td>
+      <td class="key">Destination Channel:</td>
       <td><input type="radio" name="Template::Bridge::Form::Transfer::Internal::From" value="#{bridgedchannel}"></td>
       <td>#{bridgedchannel}<br>#{bridgedcallerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.transferDestination);</script>:</td>
+      <td class="key">Transfer Destination:</td>
       <td colspan="2">#{tocallerid}</td>
     </tr>
   </table>
@@ -235,12 +250,12 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Bridge::Form::Park">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceChannel);</script>:</td>
+      <td class="key">Source Channel:</td>
       <td><input type="radio" name="Template::Bridge::Form::Park::Channel" value="#{channel}" checked></td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationChannel);</script>:</td>
+      <td class="key">Destination Channel:</td>
       <td><input type="radio" name="Template::Bridge::Form::Park::Channel" value="#{bridgedchannel}"></td>
       <td>#{bridgedchannel}<br>#{bridgedcallerid}</td>
     </tr>
@@ -251,15 +266,15 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Bridge::Form::Spy::Peer">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceChannel);</script>:</td>
+      <td class="key">Source Channel:</td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationChannel);</script>:</td>
+      <td class="key">Destination Channel:</td>
       <td>#{bridgedchannel}<br>#{bridgedcallerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.spyer);</script>:</td>
+      <td class="key">Spyer:</td>
       <td>#{spyer}</td>
     </tr>
   </table>
@@ -269,15 +284,15 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Bridge::Form::Spy::Number">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.sourceChannel);</script>:</td>
+      <td class="key">Source Channel:</td>
       <td>#{channel}<br>#{callerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.destinationChannel);</script>:</td>
+      <td class="key">Destination Channel:</td>
       <td>#{bridgedchannel}<br>#{bridgedcallerid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.spyerNumber);</script>:</td>
+      <td class="key">Spyer Number:</td>
       <td><input type="text" id="Template::Bridge::Form::Spy::Number::Spyer" value="#{spyer}"></td>
     </tr>
   </table>
@@ -288,7 +303,7 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
   <div class='meetmeDiv'>
     <table width='250' monast="contextmenu">
       <tr>
-        <td align='center' class='statusHeader'><script language="javascript">document.write(Language.meetme);</script>: "<span monast="meetme">&nbsp;</span>" (<span monast="countMeetme">0</span>)</td>
+        <td align='center' class='statusHeader'>Meetme "<span monast="meetme">&nbsp;</span>" (<span monast="countMeetme">0</span>)</td>
       </tr>
     </table>
   </div>
@@ -307,23 +322,23 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Meetme::User::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.uniqueid);</script>:</td>
+      <td class="key">Uniqueid:</td>
       <td>#{uniqueid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.channelName);</script>:</td>
+      <td class="key">Channel Name:</td>
       <td>#{channel}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridName);</script>:</td>
+      <td class="key">Callerid Name:</td>
       <td>#{calleridname}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridNumber);</script>:</td>
+      <td class="key">Callerid Number:</td>
       <td>#{calleridnum}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.userNumber);</script>:</td>
+      <td class="key">User Number:</td>
       <td>#{usernum}</td>
     </tr>
   </table>
@@ -333,7 +348,7 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Meetme::Form::InviteNumbers">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.meetme);</script>:</td>
+      <td class="key">Meetme:</td>
       <td>
         <input type="text" id="Meetme::Form::InviteNumbers::Meetme" value="#{meetme}">
       </td>
@@ -341,11 +356,11 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
     <tr>
       <td class="key">&nbsp;</td>
       <td>
-        <span><script language="javascript">document.write(Language.ifNotExistsCreateDynamic);</script></span>
+        <span>if this meetme does not exists,<br>a dynamic one will be created</span>
       </td>
     </tr>
     <tr>
-      <td class="key" valign="top"><script language="javascript">document.write(Language.numbers);</script>:<br>(<script language="javascript">document.write(Language.onePerLine);</script>)</td>
+      <td class="key" valign="top">Numbers:<br>(one per line)</td>
       <td><textarea id="Meetme::Form::InviteNumbers::Numbers" cols="20" rows="5"></textarea></td>
     </tr>
   </table>
@@ -366,35 +381,35 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::ParkedCall::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.exten);</script>:</td>
+      <td class="key">Exten:</td>
       <td>#{exten}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedChannel);</script>:</td>
+      <td class="key">Parked Channel:</td>
       <td>#{channel}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedCalleridName);</script>:</td>
+      <td class="key">Parked Callerid Name:</td>
       <td>#{calleridname}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedCalleridNumber);</script>:</td>
+      <td class="key">Parked Callerid Number:</td>
       <td>#{calleridnum}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedFrom);</script>:</td>
+      <td class="key">Parked From Channel:</td>
       <td>#{parkedFrom}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedFromCalleridName);</script>:</td>
+      <td class="key">Parked From Callerid Name:</td>
       <td>#{calleridnameFrom}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.parkedFromCalleridNumber);</script>:</td>
+      <td class="key">Parked From Callerid Number:</td>
       <td>#{calleridnumFrom}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.timeout);</script>:</td>
+      <td class="key">Timeout:</td>
       <td>#{timeout}</td>
     </tr>
   </table>
@@ -403,41 +418,37 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <!-- Queue -->
 <div class="hidden" id="Template::Queue">
   <fieldset>
-    <legend><script language="javascript">document.write(Language.queue);</script>: <span monast="queuename">&nbsp;</span></legend>
+    <legend>Queue: <span monast="queuename">&nbsp;</span></legend>
     <div class="queueStatisticsDiv">
       <table width="532" monast="contextmenu">
         <tr>
-          <td class="tableTitle" colspan="8" align="center"><script language="javascript">document.write(Language.statistics);</script></td>
+          <td class="tableTitle" colspan="8" align="center">Statistics</td>
         </tr>
         <tr>
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.max);</script>:&nbsp;</td>
+          <td class="statusHeader" align="right">Max:&nbsp;</td>
           <td class="status"><span monast="max">&nbsp;</span></td>
                 
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.calls2);</script>:&nbsp;</td>
+          <td class="statusHeader" align="right">Calls:&nbsp;</td>
           <td class="status"><span monast="calls">&nbsp;</span></td>
                 
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.completed);</script>:&nbsp;</td>
+          <td class="statusHeader" align="right">Holdtime:&nbsp;</td>
+          <td class="status"><span monast="holdtime">&nbsp;</span></td>
+                
+          <td class="statusHeader" align="right">Completed:&nbsp;</td>
           <td class="status"><span monast="completed">&nbsp;</span></td>
-          
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.abandoned);</script>:&nbsp;</td>
-          <td class="status"><span monast="abandoned">&nbsp;</span></td>
         </tr>
         <tr>
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.holdtime);</script>:&nbsp;</td>
-          <td class="status"><span monast="holdtime">&nbsp;</span></td>
-          
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.talktime);</script>:&nbsp;</td>
-          <td class="status"><span monast="talktime">&nbsp;</span></td>
+          <td class="statusHeader" align="right">Abandoned:&nbsp;</td>
+          <td class="status"><span monast="abandoned">&nbsp;</span></td>
                 
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.serviceLevel);</script>:&nbsp;</td>
+          <td class="statusHeader" align="right">Service Level:&nbsp;</td>
           <td class="status"><span monast="servicelevel">&nbsp;</span></td>
                 
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.serviceLevelPerf);</script>:&nbsp;</td>
+          <td class="statusHeader" align="right">Service level Perf.:&nbsp;</td>
           <td class="status"><span monast="servicelevelperf">&nbsp;</span></td>
-          <!--       
-          <td class="statusHeader" align="right"><script language="javascript">document.write(Language.weight);</script>:&nbsp;</td>
+                
+          <td class="statusHeader" align="right">Weight:&nbsp;</td>
           <td class="status"><span monast="weight">&nbsp;</span></td>
-           -->
         </tr>
       </table>
     </div>
@@ -445,12 +456,12 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
       <div class="queueMembersDiv" monast="queueMembersDrop">
         <table width="300">
           <tr>
-            <td class="tableTitle" colspan="3" align="center"><script language="javascript">document.write(Language.members);</script> (<span monast="queueMembersCount">0</span>)</td>
+            <td class="tableTitle" colspan="3" align="center">Members (<span monast="queueMembersCount">0</span>)</td>
           </tr>
           <tr>
-            <td class="statusHeader" width="170" align="center"><script language="javascript">document.write(Language.nameLocation);</script></td>
-            <td class="statusHeader" width="40" align="center"><script language="javascript">document.write(Language.callsTaken);</script></td>
-            <td class="statusHeader" width="90" align="center"><script language="javascript">document.write(Language.status);</script></td>
+            <td class="statusHeader" width="170" align="center">Location/Name</td>
+            <td class="statusHeader" width="40" align="center">Calls Taken</td>
+            <td class="statusHeader" width="90" align="center">Status</td>
           </tr>
         </table>
       </div>
@@ -459,7 +470,7 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
       <div class="queueClientsDiv">
         <table width="220">
           <tr>
-            <td class="tableTitle" align="center"><script language="javascript">document.write(Language.clients);</script> (<span monast="queueClientsCount">0</span>)</td>
+            <td class="tableTitle" align="center">Clients (<span monast="queueClientsCount">0</span>)</td>
           </tr>
         </table>
       </div>
@@ -471,39 +482,39 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Queue::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.queue);</script>:</td>
+      <td class="key">Queue:</td>
       <td>#{queue}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.maxCalls);</script>:</td>
+      <td class="key">Max Calls:</td>
       <td>#{max}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.activeCalls);</script>:</td>
+      <td class="key">Active Calls:</td>
       <td>#{calls}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.holdtime);</script>:</td>
+      <td class="key">Holdtime:</td>
       <td>#{holdtime} (sec)</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.completedCalls);</script>:</td>
+      <td class="key">Completed Calls:</td>
       <td>#{completed}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.abandonedCalls);</script>:</td>
+      <td class="key">Abandoned Calls:</td>
       <td>#{abandoned}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.serviceLevel);</script>:</td>
+      <td class="key">Service Level:</td>
       <td>#{servicelevel} (sec)</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.serviceLevelPerf);</script>:</td>
+      <td class="key">Service level Perf.:</td>
       <td>#{servicelevelperf}%</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.weight);</script>:</td>
+      <td class="key">Weight:</td>
       <td>#{weight}</td>
     </tr>
   </table>
@@ -513,37 +524,25 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Queue::Form::ExternalMember">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.queue);</script>:</td>
+      <td class="key">Queue:</td>
       <td>#{queue}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.memberName);</script>:</td>
+      <td class="key">Member Name:</td>
       <td>
         <input type="text" id="Template::Queue::Form::ExternalMember::Name" size="30">
       </td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.memberLocation);</script>:</td>
+      <td class="key">Member Location:</td>
       <td>
-        <input type="text" id="Template::Queue::Form::ExternalMember::Location" size="40">
+        <input type="text" id="Template::Queue::Form::ExternalMember::Location" size="30">
       </td>
     </tr>
     <tr>
       <td class="key">&nbsp;</td>
       <td>
-        <span><script language="javascript">document.write(Language.locationFormat);</script></span>
-      </td>
-    </tr>
-    <tr>
-      <td class="key"><script language="javascript">document.write(Language.penalty);</script>:</td>
-      <td>
-        <input type="text" id="Template::Queue::Form::ExternalMember::Penalty" size="5" value="0">
-      </td>
-    </tr>
-    <tr>
-      <td class="key"><script language="javascript">document.write(Language.stateInterface);</script>:</td>
-      <td>
-        <input type="text" id="Template::Queue::Form::ExternalMember::StateInterface" size="30">
+        <span>Format: Local/&lt;external_number&gt;@&lt;context&gt;</span>
       </td>
     </tr>
   </table>
@@ -574,7 +573,7 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
   <table width='300'>
     <tr>
       <td class='status' width='213'><span monast="callerid">&nbsp;</span><br><span style='font-family: monospace;' monast='chrono'></span></td>
-      <td class='status' width='87' bgcolor='#ffffb0'><script language="javascript">document.write(Language.answered);</script></td>
+      <td class='status' width='87' bgcolor='#ffffb0'>Answered</td>
     </tr>
   </table>
 </div>
@@ -583,36 +582,36 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Queue::Member::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.memberName);</script>:</td>
+      <td class="key">Name:</td>
       <td>#{name}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.memberLocation);</script>:</td>
+      <td class="key">Location:</td>
       <td>#{location}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.membership);</script>:</td>
+      <td class="key">Membership:</td>
       <td>#{membership}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.callsTaken2);</script>:</td>
+      <td class="key">Calls Taken:</td>
       <td>#{callstaken}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.lastCall);</script>:</td>
+      <td class="key">Last Call:</td>
       <td>#{lastcalltext}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.paused);</script>:</td>
+      <td class="key">Paused:</td>
       <td>#{pausedtext}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.penalty);</script>:</td>
+      <td class="key">Penalty:</td>
       <td>#{penalty}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.status);</script>:</td>
-      <td>#{statustext_nochrono_translated}</td>
+      <td class="key">Status:</td>
+      <td>#{statustext_nochrono}</td>
     </tr>
   </table>
 </div>
@@ -621,23 +620,23 @@ $("Template::Channel::Image::UserThief").title = Language.channelSpyed;
 <div style="display: none" id="Template::Queue::Client::Info">
   <table class="tableInfo">
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.uniqueid);</script>:</td>
+      <td class="key">Uniqueid:</td>
       <td>#{uniqueid}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridName);</script>:</td>
+      <td class="key">Callerid Name:</td>
       <td>#{calleridname}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.calleridNumber);</script>:</td>
+      <td class="key">Callerid Number:</td>
       <td>#{calleridnum}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.position);</script>:</td>
+      <td class="key">Position:</td>
       <td>#{position}</td>
     </tr>
     <tr>
-      <td class="key"><script language="javascript">document.write(Language.waitingSince);</script>:</td>
+      <td class="key">Waiting since:</td>
       <td>#{waittime}</td>
     </tr>
   </table>

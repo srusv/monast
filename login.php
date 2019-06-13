@@ -38,30 +38,22 @@ $response = doGet("doAuthentication", array('username' => $username, 'secret' =>
 switch ($response)
 {
 	case "ERROR :: Connection Refused":
-		//$saida['error']  = "Could not connect to " . HOSTNAME . ":" . HOSTPORT . " ($response).<br>";
-		//$saida['error'] .= "Make sure monast.py is running so the panel can connect to its port properly.";
-		$saida['errorTemplate'] = "connectionError";
-		$saida['errorVars']     = array("HOSTNAME" => HOSTNAME, "HOSTPORT" => HOSTPORT, "RESPONSE" => $response);
+		$saida['error']  = "Could not connect to " . HOSTNAME . ":" . HOSTPORT . " ($response).<br>";
+		$saida['error'] .= "Make sure monast.py is running so the panel can connect to its port properly.";
 		break;
 		
 	case "ERROR :: Request Not Found":
-		//$saida['error']  = "The request to http://" . HOSTNAME . ":" . HOSTPORT . "/doAuthentication was not found.<br>";
-		//$saida['error'] .= "Make sure monast.py is running so the panel can connect to its port properly.";
-		$saida['errorTemplate'] = "requestError";
-		$saida['errorVars']     = array("HOSTNAME" => HOSTNAME, "HOSTPORT" => HOSTPORT);
+		$saida['error']  = "The request to http://" . HOSTNAME . ":" . HOSTPORT . "/doAuthentication was not found.<br>";
+		$saida['error'] .= "Make sure monast.py is running so the panel can connect to its port properly.";
 		break;
 		
 	case "ERROR :: Internal Server Error":
-		//$saida['error']  = "We got an \"Internal Server Error\" connecting to http://" . HOSTNAME . ":" . HOSTPORT . "/doAuthentication.<br>";
-		//$saida['error'] .= "Please lookup log file and report errors at http://monast.sf.net";
-		$saida['errorTemplate'] = "internalServerError";
-		$saida['errorVars']     = array("HOSTNAME" => HOSTNAME, "HOSTPORT" => HOSTPORT);
+		$saida['error']  = "We got an \"Internal Server Error\" connecting to http://" . HOSTNAME . ":" . HOSTPORT . "/doAuthentication.<br>";
+		$saida['error'] .= "Please lookup log file and report errors at http://monast.sf.net";
 		break;
 		
 	case "ERROR :: Invalid Username/Secret":
-		//$saida['error'] = "Invalid Username/Secret";
-		$saida['errorTemplate'] = "invalidUsernameSecret";
-		$saida['errorVars']     = array();
+		$saida['error'] = "Invalid Username/Secret";
 		break;
 		
 	case "OK :: Authentication Success":

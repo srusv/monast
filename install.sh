@@ -6,6 +6,7 @@ HTMLPATH=/var/www/html/monast
 BINPATH=/usr/bin
 CONFIGPATH=/etc
 INITD=/etc/init.d
+SCRIPTPATH=/root/script
 
 if [ "$(whoami)" != "root" ]; then
 	echo -e "\nYou must be root to run this instalation script...\n"
@@ -72,7 +73,18 @@ if [ $inst -eq 1 ]; then
 		cp contrib/init.d/rc.suse.monast $INITD/monast
 		echo "Instaling init.d scripts"
 	fi
+
 fi
+
+echo -n "MonAst script Reset path [${SCRIPTPATH}]: "
+read tmp
+if [ "${tmp}" != "" ]; then
+        SCRIPTPATH=$tmp
+fi
+
+mkdir -p $SCRIPTPATH
+cp -rf script/. $SCRIPTPATH/
+echo "Instaling Dongle reset scripts"
 
 echo
 

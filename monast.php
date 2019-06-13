@@ -36,7 +36,6 @@ setValor('LastReload', time());
 $servers   = array();
 $server    = getValor('Server', 'session');
 $errors    = array();
-$username  = getValor('username', 'session');
 session_write_close();
 
 $template = new TemplatePower('template/monast.html');
@@ -125,18 +124,12 @@ switch ($response)
 		break;
 }
 
-$templateContent = "";
+$templateContent = ""; 
 $dir = opendir("template");
 while (($file = readdir($dir)))
 {
 	if (preg_match("/^template_.*\.html$/", $file) && $file != "template_default.html")
 		$templateContent .= file_get_contents("template/$file");
-	
-	if ($file == "user_template_$username.html")
-	{
-		$templateContent = file_get_contents("template/user_template_$username.html");
-		break;
-	}
 } 
 closedir($dir);
 
@@ -148,8 +141,6 @@ $template->assign('MONAST_BLINK_COUNT', MONAST_BLINK_COUNT);
 $template->assign('MONAST_BLINK_INTERVAL', MONAST_BLINK_INTERVAL);
 $template->assign('MONAST_KEEP_CALLS_SORTED', MONAST_KEEP_CALLS_SORTED ? 'true' : 'false');
 $template->assign('MONAST_KEEP_PARKEDCALLS_SORTED', MONAST_KEEP_PARKEDCALLS_SORTED ? 'true' : 'false');
-$template->assign('MONAST_GROUP_BY_TECH', MONAST_GROUP_BY_TECH ? 'true' : 'false');
-$template->assign('MONAST_USERNAME', $username);
 
 if (MONAST_CLI_TAB)
 {
@@ -164,31 +155,18 @@ if (MONAST_DEBUG_TAB || getValor('debug'))
 }
 
 // Users/Peers
-$serverPeers = array("MonAst" => $status[$server]['peers']);
-if (MONAST_GROUP_BY_TECH)
-{
-	$serverPeers = array();
-	foreach ($status[$server]['peers'] as $peer)
-	{
-		if (!array_key_exists($peer['channeltype'], $serverPeers))
-			$serverPeers[$peer['channeltype']] = array();
-		
-		$serverPeers[$peer['channeltype']][] = $peer;
-	}
-}
-
-$techs = array_keys($serverPeers);
+$techs = array_keys($status[$server]['peers']);
 sort($techs);
 foreach ($techs as $tech)
 {
-	$peers = $serverPeers[$tech];
-	
+	$peers = $status[$server]['peers'][$tech];
+
+
 	if (count($peers) > 0)
 	{
 		$template->newBlock('technology');
 		$template->assign('technology', $tech);
-		$template->assign('count', count($peers));
-		
+		$template->assign('count', count($peers));		
 		$groups = array();
 		
 		foreach ($peers as $idx => $peer)
@@ -205,6 +183,13 @@ foreach ($techs as $tech)
 			}
 		}
 		
+		if ($tech == 'Dongle')
+		{
+			$template->newBlock('restdongle');
+			$template->assign('technology', $tech);
+			$template->assign('restdongle', $tech);
+		}
+
 		foreach ($groups as $group => $count)
 		{
 			if ($group != "No Group")

@@ -1,0 +1,176 @@
+Обновления, если они будут, лежат тут - https://yadi.sk/d/PVRLfxQXfNnuZ
+Тапки и пожелания на mail@kivko.nsk.ru Благодарности на Яндекс кошелек 41001405178605
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Для использования правленой версии MonAst требуется сделать коректировку кода chan_dongle.
+
+1. chan_dongle отдает в  AMI (DongleStatus) только факт использовая донгла "Used" и не отдает состояния Ring, SMS, Dial ...
+2. Не отдаеются уровни приема сотовой сети.
+
+Поэтому будем дорабатывать chan_dongle и вводить событие DongleChanelStatus, DongleAntennaLevel
+Тут будут выкладыватся полный список дополнений, которые я делаю к официальной версии. 
+
+
+в файле manager.h
+-------------------------------------------------------------------------------------------------------------------------------------
+EXPORT_DECL void manager_event_device_status(const char * devname, const char * newstatus);
+EXPORT_DECL void manager_event_device_chanel_status(const char * devname, const char * newstatus);			/*  добавить  */ 
+EXPORT_DECL void manager_event_device_antenna_level(const char * devname, int rssi, const char * signal); 		/*  добавить  */ 
+EXPORT_DECL void manager_event_sent_notify(const char * devname, const char * type, const void * id, const char * result);
+-------------------------------------------------------------------------------------------------------------------------------------
+
+в файле manager.c
+-------------------------------------------------------------------------------------------------------------------------------------
+#/* */ - после функции 
+EXPORT_DEF void manager_event_device_status(const char * devname, const char * newstate)
+{
+        manager_event(EVENT_FLAG_CALL, "DongleStatus",
+                "Device: %s\r\n"
+                "Status: %s\r\n",
+                devname,
+                newstate
+                );
+}
+
+#/* */ 												/*  добавить  функцию */ 
+EXPORT_DEF void manager_event_device_chanel_status(const char * devname, const char * newstate)
+{
+        manager_event(EVENT_FLAG_CALL, "DongleChanelStatus",
+                "Device: %s\r\n"
+                "Status: %s\r\n",
+                devname,
+                newstate
+                );
+}
+
+#/* */ 												/*  добавить  функцию */
+EXPORT_DEF void manager_event_device_antenna_level(const char * devname, int rssi, const char * signal)
+{
+        manager_event(EVENT_FLAG_CALL, "DongleAntennaLevel",
+                "Device: %s\r\n"
+                "RSSI: %d\r\n" 
+                "Signal: %s\r\n",
+                devname, 
+                rssi,
+                signal
+                );
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+
+в файле chan_dongle.c 
+-------------------------------------------------------------------------------------------------------------------------------------
+в функцию EXPORT_DEF const char* pvt_str_state(const struct pvt* pvt) в конце перед возвратом добавить ( manager_event_device_chanel_status(PVT_ID(pvt), state);
+ )
+
+
+                else if(pvt->outgoing_sms || pvt->incoming_sms)
+                        state = "SMS";
+                else
+                        state = "Free";
+        }
+        manager_event_device_chanel_status(PVT_ID(pvt), state);	 	/*  добавить  */
+        return state;
+}
+
+далее в функцию 
+static const char * pvt_state_base(const struct pvt * pvt)	 
+
+        else if(!pvt->gsm_registered)
+                state = "GSM not registered";
+        manager_event_device_chanel_status(PVT_ID(pvt), state); 	/*  добавить  */
+        return state;
+}
+
+далее в функции
+static int reload_config(public_state_t * state, int recofigure, restate_time_t when, unsigned * reload_immediality)
+находим 				ast_log (LOG_NOTICE, "[%s] Loaded device\n", PVT_ID(pvt));
+добавляем
+				ast_log (LOG_NOTICE, "[%s] Loaded device\n", PVT_ID(pvt));
+				ast_verb (4, "[%s] Loaded device\n", PVT_ID(pvt));			 /*  добавить  */
+				manager_event_device_status(PVT_ID(pvt), "Loaded");		 /*  добавить  */
+
+ищем далее
+        AST_RWLIST_TRAVERSE(&state->devices, pvt, entry)
+        {
+                ast_mutex_lock(&pvt->lock);
+                if(pvt->must_remove)
+                {
+                        pvt->desired_state = DEV_STATE_REMOVED;
+                        if(pvt_time4restate(pvt))
+                        {
+                                pvt->restart_time = RESTATE_TIME_NOW;
+                                reload_now++;
+                        	ast_verb (4, "[%s] Removal of devices\n", PVT_ID(pvt));  	/* добавить  */
+                        	manager_event_device_status(PVT_ID(pvt), "Removal");	 /* добавить  */
+                        }
+                        else
+                        {
+                                pvt->restart_time = when;
+                        }
+
+                }
+                ast_mutex_unlock(&pvt->lock);
+-------------------------------------------------------------------------------------------------------------------------------------
+
+в at_response.c
+-------------------------------------------------------------------------------------------------------------------------------------
+static int at_response_rssi (struct pvt* pvt, const char* str)
+{
+	char buf[40];	 																																											/* добавить  */
+	int rssi = at_parse_rssi (str);
+
+	if (rssi == -1)
+	{
+		ast_debug (2, "[%s] Error parsing RSSI event '%s'\n", PVT_ID(pvt), str);
+		return -1;
+	}
+
+	pvt->rssi = rssi;
+	manager_event_device_antenna_level (PVT_ID(pvt), pvt->rssi, rssi2dBm(pvt->rssi, buf, sizeof(buf))); /*  добавить  */
+	return 0;
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+в pdiscovery.c
+ищем
+static int pdiscovery_do_cmd(const struct pdiscovery_request * req, int fd, const char * name, const char * cmd, uns$
+
+        if(wrote == length) {
+                timeout = PDISCOVERY_TIMEOUT;
+                rb_init(&rb, buf, sizeof(buf) - 1);
+                while(timeout > 0 && at_wait(fd, &timeout) != 0) {
+                        iovcnt = at_read(fd, name, &rb);
+                        if(iovcnt > 0) {
+                                iovcnt = rb_read_all_iov(&rb, iov);
+                                if(pdiscovery_handle_response(req, iov, iovcnt, res))
+                                        return 0;
+                        } else {
+                                snprintf(buf, sizeof(buf), "Read Failed\r\nErrorCode: %d", errno);         
+                                manager_event_message_raw("DonglePortFail", name, buf);
+                                manager_event_message("DonglePortFail", req->name, buf); 	 /* добавить  */
+                                ast_log (LOG_ERROR, "[%s discovery] read from %s failed: %s\n", req->name, name, str$
+                                return -1;
+                        }
+                }
+                manager_event_message_raw("DonglePortFail", name, "Response Failed");
+                manager_event_message("DonglePortFail", req->name, "Response Failed");           /* добавить  */
+                ast_log (LOG_ERROR, "[%s discovery] failed to get valid response from %s in %d msec\n", req->name, n$
+        } else {
+                snprintf(buf, sizeof(buf), "Write Failed\r\nErrorCode: %d", errno);
+                manager_event_message_raw("DonglePortFail", name, buf);
+                manager_event_message("DonglePortFail", req->name, buf);   			/* добавить  */
+                ast_log (LOG_ERROR, "[%s discovery] write to %s failed: %s\n", req->name, name, strerror(errno));
+        }
+        return 1;
+-------------------------------------------------------------------------------------------------------------------------------------
+
+nano configure.in  поправим PACKAGE_REVISION="45.06"  - добавим что то свое 
+./configure
+make
+
+СLI> module unload chan_dongle.so
+
+cp chan_dongle.so /usr/lib64/asterisk/modules/ (для 64 бит)
+
+СLI> module load chan_dongle.so
+
+Наслаждаемся
